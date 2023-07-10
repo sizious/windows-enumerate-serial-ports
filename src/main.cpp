@@ -25,12 +25,12 @@ int main(int argc, char* argv[]) {
 	std::vector<SSerInfo> asi;
 
 	std::cout <<
-		"\"PortIndex\"" << DELIMITER <<
-		"\"DevPath\"" << DELIMITER <<
-		"\"PortName\"" << DELIMITER <<
+		"\"Index\"" << DELIMITER <<
+		"\"DevicePath\"" << DELIMITER <<
+		"\"Name\"" << DELIMITER <<
 		"\"FriendlyName\"" << DELIMITER <<
 		"\"IsUSBDevice\"" << DELIMITER <<
-		"\"PortDesc\"" << DELIMITER << std::endl;
+		"\"Description\"" << DELIMITER << std::endl;
 		
 	// Populate the list of serial ports.
 	EnumSerialPorts(asi, FALSE/*include all*/);

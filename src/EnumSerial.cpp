@@ -75,6 +75,11 @@ void SearchPnpKeyW9x(HKEY hkPnp, BOOL bUsbDevice,
 // occurred. If bIgnoreBusyPorts is TRUE, ports that can't
 // be opened for read/write access are not included.
 
+bool compareSerialInfoByIndex(const SSerInfo &a, const SSerInfo &b)
+{
+	return a.intPortIndex < b.intPortIndex;
+}
+
 void EnumSerialPorts(std::vector<SSerInfo> &asi, BOOL bIgnoreBusyPorts)
 {
 	// Clear the output array
@@ -177,6 +182,9 @@ void EnumSerialPorts(std::vector<SSerInfo> &asi, BOOL bIgnoreBusyPorts)
 			}
 		}
 	}
+	
+	// Sort by PortIndex	
+	std::sort(asi.begin(), asi.end(), compareSerialInfoByIndex);
 }
 
 // Helpers for EnumSerialPorts
