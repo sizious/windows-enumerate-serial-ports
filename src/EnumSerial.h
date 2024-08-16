@@ -71,7 +71,7 @@ struct SSerInfo {
     std::string strFriendlyName;     // Full name to be displayed to a user
     BOOL bUsbDevice;                 // Provided through a USB connection?
     std::string strPortDesc;         // friendly name without the COMx
-	int intPortIndex;
+    int intPortIndex;
 };
 
 // Routine for enumerating the available serial ports. Throws a std::string on
