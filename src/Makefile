@@ -13,14 +13,23 @@ SRCS = EnumSerial.cpp main.cpp
 OBJS = $(subst .cpp,.o,$(SRCS))
 
 TARGET = $(PROJECT)
-ifeq ($(OS),Windows_NT)
+
+ifdef LIBRARY
+	TARGET := $(TARGET).dll
+	CPPFLAGS += -DLIBRARY
+	LDFLAGS += -shared -Wl,--add-stdcall-alias
+else
 	TARGET := $(TARGET).exe
+endif
+
+ifeq ($(ARCH),32)
+	LDFLAGS += -m32
 endif
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CXX) $(LDFLAGS) -o $(TARGET) $(OBJS) $(LDLIBS)
+	$(CXX) $(CPPFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJS) $(LDLIBS)
 	$(STRIP) $(TARGET)
 
 clean:
