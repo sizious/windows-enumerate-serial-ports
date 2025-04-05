@@ -22,4 +22,4 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-Check the [LICENCE](LICENCE.md) file.
+Check the [LICENSE](LICENSE.md) file.
