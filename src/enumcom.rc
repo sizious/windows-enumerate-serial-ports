@@ -1,0 +1,39 @@
+#include <winver.h>
+#include <windows.h>
+
+1 VERSIONINFO
+FILEVERSION 1,1,0,0
+PRODUCTVERSION 1,1,0,0
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+
+BEGIN
+
+	BLOCK "StringFileInfo"
+	BEGIN
+		BLOCK "040C04E4"
+		BEGIN
+			VALUE "Comments", "https://github.com/sizious/windows-enumerate-serial-ports\0"
+			VALUE "CompanyName", "Archetype Auction Software, Inc., Zach Gorman, SiZiOUS\0"
+			VALUE "FileDescription", "EnumCom - Windows Enumerate Serial Ports\0"
+			VALUE "FileVersion", "1.1.0.0"
+			VALUE "LegalCopyright", "© Copyright 2002, 2023-2025\0"
+			VALUE "LegalTrademarks", "Based on the original work by Archetype Auction Software, Inc.\0"
+#ifdef LIBRARY
+			VALUE "InternalName", "enumcom.dll\0"
+			VALUE "OriginalFilename", "enumcom.dll\0"
+#else
+			VALUE "InternalName", "enumcom.exe\0"
+			VALUE "OriginalFilename", "enumcom.exe\0"
+#endif			
+			VALUE "ProductName", "EnumCom - Windows Enumerate Serial Ports\0"
+			VALUE "ProductVersion", "1.1.0.0"
+		END
+	END
+
+	BLOCK "VarFileInfo"
+	BEGIN
+		VALUE "Translation", 1036, 1252
+	END
+
+END

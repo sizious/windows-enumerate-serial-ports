@@ -4,27 +4,45 @@ CC = gcc
 CXX = g++
 STRIP = strip
 RM = rm -f
+WINDRES = windres
 
 CPPFLAGS =
 LDFLAGS = -static
 LDLIBS = -lsetupapi -lhid
+WINDRESFLAGS =
 
 SRCS = EnumSerial.cpp main.cpp
 OBJS = $(subst .cpp,.o,$(SRCS))
 
+RSRC = $(PROJECT).rc
+RES = $(subst .rc,.res,$(RSRC))
+
 TARGET = $(PROJECT)
-ifeq ($(OS),Windows_NT)
+
+ifdef LIBRARY
+	TARGET := $(TARGET).dll
+	CPPFLAGS += -DLIBRARY
+	WINDRESFLAGS += -DLIBRARY
+	LDFLAGS += -shared -Wl,--add-stdcall-alias
+else
 	TARGET := $(TARGET).exe
+endif
+
+ifeq ($(ARCH),32)
+	LDFLAGS += -m32
 endif
 
 all: $(TARGET)
 
-$(TARGET): $(OBJS)
-	$(CXX) $(LDFLAGS) -o $(TARGET) $(OBJS) $(LDLIBS)
+$(TARGET): $(OBJS) $(RES)
+	$(CXX) $(CPPFLAGS) $(LDFLAGS) -o $(TARGET) $(OBJS) $(RES) $(LDLIBS)
 	$(STRIP) $(TARGET)
 
+$(RES) : $(RSRC)
+	$(WINDRES) $(WINDRESFLAGS) $< -O coff -o $@
+
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(RES)
 
 distclean: clean
 	$(RM) $(TARGET)
