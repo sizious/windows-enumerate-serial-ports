@@ -13,11 +13,11 @@
 
 typedef struct {
 	int intPortIndex;
-    int bUsbDevice;							// Provided through a USB connection?
+	int bUsbDevice;							// Provided through a USB connection?
 	char strDevPath[BUFFERSIZE];			// Device path for use with CreateFile()
-    char strPortName[BUFFERSIZE];			// Simple name (i.e. COM1)
-    char strFriendlyName[BUFFERSIZE];		// Full name to be displayed to a user    						
-    char strPortDesc[BUFFERSIZE];			// friendly name without the COMx    
+	char strPortName[BUFFERSIZE];			// Simple name (i.e. COM1)
+	char strFriendlyName[BUFFERSIZE];		// Full name to be displayed to a user
+	char strPortDesc[BUFFERSIZE];			// friendly name without the COMx
 } SerialPortInformation;
 
 #endif /* __LIBRARY__ */

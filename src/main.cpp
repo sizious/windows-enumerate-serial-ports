@@ -30,10 +30,10 @@ extern "C" {
 		for (int i = 0; i < actualCount; i++) {
 			outArray[i].intPortIndex = g_serial_ports[i].intPortIndex;
 			outArray[i].bUsbDevice = g_serial_ports[i].bUsbDevice;
-			strncpy_s(outArray[i].strDevPath, sizeof(outArray[i].strDevPath), g_serial_ports[i].strDevPath, _TRUNCATE);			
+			strncpy_s(outArray[i].strDevPath, sizeof(outArray[i].strDevPath), g_serial_ports[i].strDevPath, _TRUNCATE);
 			strncpy_s(outArray[i].strPortName, sizeof(outArray[i].strPortName), g_serial_ports[i].strPortName, _TRUNCATE);
 			strncpy_s(outArray[i].strFriendlyName, sizeof(outArray[i].strFriendlyName), g_serial_ports[i].strFriendlyName, _TRUNCATE);
-			strncpy_s(outArray[i].strPortDesc, sizeof(outArray[i].strPortDesc), g_serial_ports[i].strPortDesc, _TRUNCATE);						
+			strncpy_s(outArray[i].strPortDesc, sizeof(outArray[i].strPortDesc), g_serial_ports[i].strPortDesc, _TRUNCATE);
 		}
 
 		return actualCount;
