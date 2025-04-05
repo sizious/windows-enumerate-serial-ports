@@ -47,9 +47,9 @@ begin
         GetSerialPorts(@SerialPortInformationArray[0], SerialPortsCount);
         for i := 0 to SerialPortsCount - 1 do
         begin
-          WriteLn('PortIndex: "', SerialPortInformationArray[i].intPortIndex, '"');
+          WriteLn('intPortIndex: "', SerialPortInformationArray[i].intPortIndex, '"');
+          WriteLn('bUsbDevice: "', SerialPortInformationArray[i].bUsbDevice, '"');
           WriteLn('strDevPath: "', SerialPortInformationArray[i].strDevPath, '"');
-          WriteLn('strDevPath: "', SerialPortInformationArray[i].strPortName, '"');
           WriteLn('strPortName: "', SerialPortInformationArray[i].strPortName, '"');
           WriteLn('strFriendlyName: "', SerialPortInformationArray[i].strFriendlyName, '"');
           WriteLn('strPortDesc: "', SerialPortInformationArray[i].strPortDesc, '"');
