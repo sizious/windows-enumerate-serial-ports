@@ -43,20 +43,32 @@ extern "C" {
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
     if (fdwReason == DLL_PROCESS_ATTACH) {
 		std::vector<SSerInfo> asi;
-		
-		EnumSerialPorts(asi, FALSE /*include all*/);
-		
-		for (int i = 0; i < asi.size(); i++) {
-			SSerInfo item = asi[i];
+
+		g_serial_ports_count = 0;
+
+		// Exceptions must never escape DllMain, or the host process will crash
+		try {
+			EnumSerialPorts(asi, FALSE /*include all*/);
+		}
+		catch (...) {
+			return TRUE; // no serial ports reported
+		}
+
+		// Never write past the end of the fixed-size array
+		int count = (asi.size() < MAX_SERIAL_PORT_COUNT)
+			? static_cast<int>(asi.size()) : MAX_SERIAL_PORT_COUNT;
+
+		for (int i = 0; i < count; i++) {
+			const SSerInfo& item = asi[i];
 			g_serial_ports[i].intPortIndex = item.intPortIndex;
-			safe_strncpy(g_serial_ports[i].strDevPath, BUFFERSIZE, item.strDevPath.c_str()); 
+			safe_strncpy(g_serial_ports[i].strDevPath, BUFFERSIZE, item.strDevPath.c_str());
 			safe_strncpy(g_serial_ports[i].strPortName, BUFFERSIZE, item.strPortName.c_str());
 			safe_strncpy(g_serial_ports[i].strFriendlyName, BUFFERSIZE, item.strFriendlyName.c_str());
 			g_serial_ports[i].bUsbDevice = item.bUsbDevice;
 			safe_strncpy(g_serial_ports[i].strPortDesc, BUFFERSIZE, item.strPortDesc.c_str());
 		}
 
-		g_serial_ports_count = asi.size();
+		g_serial_ports_count = count;
     }
     return TRUE;
 }
