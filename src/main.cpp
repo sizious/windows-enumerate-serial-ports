@@ -30,10 +30,10 @@ extern "C" {
 		for (int i = 0; i < actualCount; i++) {
 			outArray[i].intPortIndex = g_serial_ports[i].intPortIndex;
 			outArray[i].bUsbDevice = g_serial_ports[i].bUsbDevice;
-			strncpy_s(outArray[i].strDevPath, sizeof(outArray[i].strDevPath), g_serial_ports[i].strDevPath, _TRUNCATE);
-			strncpy_s(outArray[i].strPortName, sizeof(outArray[i].strPortName), g_serial_ports[i].strPortName, _TRUNCATE);
-			strncpy_s(outArray[i].strFriendlyName, sizeof(outArray[i].strFriendlyName), g_serial_ports[i].strFriendlyName, _TRUNCATE);
-			strncpy_s(outArray[i].strPortDesc, sizeof(outArray[i].strPortDesc), g_serial_ports[i].strPortDesc, _TRUNCATE);
+			safe_strncpy(outArray[i].strDevPath, sizeof(outArray[i].strDevPath), g_serial_ports[i].strDevPath);
+			safe_strncpy(outArray[i].strPortName, sizeof(outArray[i].strPortName), g_serial_ports[i].strPortName);
+			safe_strncpy(outArray[i].strFriendlyName, sizeof(outArray[i].strFriendlyName), g_serial_ports[i].strFriendlyName);
+			safe_strncpy(outArray[i].strPortDesc, sizeof(outArray[i].strPortDesc), g_serial_ports[i].strPortDesc);
 		}
 
 		return actualCount;
@@ -49,11 +49,11 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved) {
 		for (int i = 0; i < asi.size(); i++) {
 			SSerInfo item = asi[i];
 			g_serial_ports[i].intPortIndex = item.intPortIndex;
-			strncpy_s(g_serial_ports[i].strDevPath, BUFFERSIZE, item.strDevPath.c_str(), _TRUNCATE); 
-			strncpy_s(g_serial_ports[i].strPortName, BUFFERSIZE, item.strPortName.c_str(), _TRUNCATE);
-			strncpy_s(g_serial_ports[i].strFriendlyName, BUFFERSIZE, item.strFriendlyName.c_str(), _TRUNCATE);
+			safe_strncpy(g_serial_ports[i].strDevPath, BUFFERSIZE, item.strDevPath.c_str()); 
+			safe_strncpy(g_serial_ports[i].strPortName, BUFFERSIZE, item.strPortName.c_str());
+			safe_strncpy(g_serial_ports[i].strFriendlyName, BUFFERSIZE, item.strFriendlyName.c_str());
 			g_serial_ports[i].bUsbDevice = item.bUsbDevice;
-			strncpy_s(g_serial_ports[i].strPortDesc, BUFFERSIZE, item.strPortDesc.c_str(), _TRUNCATE);
+			safe_strncpy(g_serial_ports[i].strPortDesc, BUFFERSIZE, item.strPortDesc.c_str());
 		}
 
 		g_serial_ports_count = asi.size();
